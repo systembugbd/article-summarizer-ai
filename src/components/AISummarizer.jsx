@@ -84,19 +84,17 @@ const AISummarizer = () => {
     };
 
     const handleDelete = (deleteUrl) => {
-  
-        const localArticle = getLocalSArticle();
-        console.log(allArticle)
+        const confirm = window.confirm("Are you sure, you want to delete?");
+        if (confirm) {
+            const localArticle = getLocalSArticle();
 
-        const updatedAllArticle = localArticle?.filter((item) => {
-           return item.url !== deleteUrl
-        });
-        
-        setAllArticle([...updatedAllArticle]);
-        localStorage.setItem(
-            "articles",
-            JSON.stringify(updatedAllArticle)
-        );
+            const updatedAllArticle = localArticle?.filter((item) => {
+                return item.url !== deleteUrl;
+            });
+
+            setAllArticle([...updatedAllArticle]);
+            localStorage.setItem("articles", JSON.stringify(updatedAllArticle));
+        }
     };
     return (
         <section className="w-full max-w-xl mt-16">
@@ -140,7 +138,7 @@ const AISummarizer = () => {
                             <span className="flex-1 truncate">{item.url}</span>
                             <img
                                 onClick={() => handleDelete(item.url)}
-                                src={copyed == item.url ? tick : deleteIcon}
+                                src={deleteIcon}
                                 alt="copy"
                                 className="p-1 copy_btn hover:text-green-700"
                             />
